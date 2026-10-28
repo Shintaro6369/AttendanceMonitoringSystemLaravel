@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\TwoFactorController;
+use App\Http\Controllers\PasswordResetController;
 
 // 1. Hop-In Page (Welcome)
 Route::view('/', 'welcome');
@@ -76,3 +77,8 @@ Route::put('/admin/profile', [AdminProfileController::class, 'update'])->name('a
 // Student Edit Routes (from Search Portal)
 Route::get('/admin/students/{id}/edit', [StudentController::class, 'edit'])->name('admin.students.edit');
 Route::put('/admin/students/{id}', [StudentController::class, 'update'])->name('admin.students.update');
+
+Route::get('/forgot-password', [PasswordResetController::class, 'showEmailForm'])->name('password.request');
+Route::post('/forgot-password', [PasswordResetController::class, 'verifyEmail'])->name('password.email');
+Route::get('/reset-password', [PasswordResetController::class, 'showResetForm'])->name('password.reset.form');
+Route::post('/reset-password', [PasswordResetController::class, 'updatePassword'])->name('password.update');

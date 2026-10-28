@@ -39,7 +39,7 @@ class StudentController extends Controller
         return view('admin.register-student');
     }
 
-    // Store new student with custom image renaming
+    // Store new student with custom image renaming and a unique random password
     public function store(Request $request)
     {
         $request->validate([
@@ -49,6 +49,9 @@ class StudentController extends Controller
             'year_section' => 'required|string',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
+
+        // Generate a unique random temporary password for this specific student
+        $plainPassword = 'St-' . rand(100000, 999999);
 
         // Default if no image is uploaded
         $newFileName = 'default-emo.jpg';
@@ -66,7 +69,8 @@ class StudentController extends Controller
         User::create([
             'name' => $request->name,
             'email' => $request->student_number . '@student.edu', // Auto-generated login email
-            'password' => Hash::make('defaultpassword123'),
+            'password' => Hash::make($plainPassword),
+            'temp_password' => $plainPassword, // Stored so admin can view it on search
             'role' => 'student',
             'student_number' => $request->student_number,
             'course' => $request->course,
@@ -74,7 +78,7 @@ class StudentController extends Controller
             'profile_picture' => $newFileName
         ]);
 
-        return back()->with('success', 'Student account created successfully!');
+        return back()->with('success', 'Student account created successfully! Generated Password: ' . $plainPassword);
     }
 
     // Show student edit form (Admin)

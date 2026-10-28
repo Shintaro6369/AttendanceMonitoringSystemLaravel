@@ -41,9 +41,9 @@
                         <p class="text-xs text-teal-300">Course: {{ $student->course }} | Section: {{ $student->year_section }}</p>
                         <p class="text-xs text-slate-400">Student No: {{ $student->student_number }}</p>
                         
-                        <!-- Email & Password Info -->
+                        <!-- Email & Unique Password Info -->
                         <p class="text-xs text-slate-300 pt-1">Email: <span class="font-mono text-teal-200">{{ $student->email }}</span></p>
-                        <p class="text-xs text-slate-300">Password: <span class="font-mono text-teal-200">defaultpassword123</span></p>
+                        <p class="text-xs text-slate-300">Password: <span class="font-mono text-teal-200">{{ $student->temp_password ?? 'Not Available' }}</span></p>
 
                         <!-- Latest Time-In Info -->
                         <p class="text-xs text-teal-400 font-semibold pt-1">

@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'temp_password',     // Added to store unique random passwords for students
         'role',              // Added for admin/student roles
         'student_number',    // Added for students
         'course',            // Added for student courses
